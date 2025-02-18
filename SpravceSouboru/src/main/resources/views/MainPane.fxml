@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.spravcesouboru.MainPaneController">
+    <top>
+        <VBox BorderPane.alignment="CENTER">
+            <MenuBar>
+                <Menu fx:id="fileMenu" mnemonicParsing="false" text="%file">
+                    <MenuItem fx:id="closeMenuItem" mnemonicParsing="false" onAction="#closeApplication" text="%file.close" />
+                    <MenuItem fx:id="aboutMenuItem" mnemonicParsing="false" onAction="#aboutApplication" text="%file.about" />
+                </Menu>
+                <Menu fx:id="languageMenu" mnemonicParsing="false" text="%language">
+                    <MenuItem fx:id="englishMenuItem" mnemonicParsing="false" onAction="#changeLanguageToEng" text="%language.en" />
+                    <MenuItem fx:id="czechMenuItem" mnemonicParsing="false" onAction="#changeLanguageToCzech" text="%language.cz" />
+                </Menu>
+            </MenuBar>
+            <SplitPane dividerPositions="0.5">
+                <AnchorPane>
+                    <ToolBar prefHeight="40.0" prefWidth="477.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-31.0" AnchorPane.topAnchor="0.0">
+                        <ChoiceBox fx:id="leftRootChoicebox" onAction="#leftRootChoicebox_OnAction" prefWidth="75.0" />
+                        <Button fx:id="leftRefreshButton" mnemonicParsing="false" onAction="#refreshLeft" text="%refresh" />
+                        <Separator orientation="VERTICAL" />
+                        <Button fx:id="leftTreeButton" mnemonicParsing="false" onAction="#showTreeViewLeft" text="%treeView" />
+                        <Button fx:id="leftAddButton" mnemonicParsing="false" onAction="#addToLeft" text="%add" />
+                        <Button fx:id="leftCopyButton" mnemonicParsing="false" onAction="#copyToRight" text="%copy" />
+                        <Button fx:id="leftMoveButton" mnemonicParsing="false" onAction="#moveToRight" text="%move" />
+                        <Button fx:id="leftDeleteButton" mnemonicParsing="false" onAction="#deleteFromLeft" text="%delete" />
+                    </ToolBar>
+                </AnchorPane>
+                <AnchorPane>
+                    <ToolBar prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ChoiceBox fx:id="rightRootChoicebox" onAction="#rightRootChoicebox_OnAction" prefWidth="75.0" />
+                        <Button fx:id="rightRefreshButton" mnemonicParsing="false" onAction="#refreshRight" text="%refresh" />
+                        <Separator orientation="VERTICAL" />
+                        <Button fx:id="rightTreeButton" mnemonicParsing="false" onAction="#showTreeViewRight" text="%treeView" />
+                        <Button fx:id="rightAddButton" mnemonicParsing="false" onAction="#addToRight" text="%add" />
+                        <Button fx:id="rightCopyButton" mnemonicParsing="false" onAction="#copyToLeft" text="%copy" />
+                        <Button fx:id="rightMoveButton" mnemonicParsing="false" onAction="#moveToLeft" text="%move" />
+                        <Button fx:id="rightDeleteButton" mnemonicParsing="false" onAction="#deleteFromRight" text="%delete" />
+                    </ToolBar>
+                </AnchorPane>
+            </SplitPane>
+        </VBox>
+    </top>
+    <bottom>
+        <BorderPane BorderPane.alignment="CENTER">
+            <left>
+                <Label fx:id="leftLabel" BorderPane.alignment="BOTTOM_LEFT" />
+            </left>
+            <right>
+                <Label fx:id="rightLabel" BorderPane.alignment="CENTER_RIGHT" />
+            </right>
+        </BorderPane>
+    </bottom>
+    <center>
+        <AnchorPane BorderPane.alignment="CENTER">
+            <SplitPane dividerPositions="0.4988738738738739" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <VBox>
+                    <padding>
+                        <Insets top="3.0" />
+                    </padding>
+                    <AnchorPane>
+                        <padding>
+                            <Insets bottom="3.0" />
+                        </padding>
+                        <Label text="%path" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="5.0" />
+                        <TextField fx:id="leftCurrentPathField" maxWidth="1.7976931348623157E308" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="5.0" />
+                    </AnchorPane>
+                    <TableView fx:id="leftTableView" fixedCellSize="0.0" onMouseClicked="#leftTableView_OnMouseClicked" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="leftTableImageColumn" maxWidth="30.0" minWidth="30.0" prefWidth="30.0">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="image " />
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="leftTableNameColumn" maxWidth="1.7976931348623157E308" minWidth="120.0" prefWidth="-1.0" text="%table.name">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="fileName" />
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="leftTableTypeColumn" maxWidth="1.7976931348623157E308" minWidth="120.0" prefWidth="-1.0" text="%table.type">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="fileType" />
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="leftTableSizeColumn" maxWidth="1.7976931348623157E308" minWidth="120.0" prefWidth="-1.0" text="%table.size">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="size" />
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="leftTableDateColumn" maxWidth="1.7976931348623157E308" minWidth="120.0" prefWidth="-1.0" text="%table.date">
+                                <cellValueFactory>
+
+                                    <PropertyValueFactory property="lastModifiedDate" />
+                                </cellValueFactory>
+                            </TableColumn>
+                        </columns>
+                    </TableView>
+                </VBox>
+                <VBox>
+                    <padding>
+                        <Insets top="3.0" />
+                    </padding>
+                    <AnchorPane>
+                        <padding>
+                            <Insets bottom="3.0" />
+                        </padding>
+                        <Label text="%path" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="5.0" />
+                        <TextField fx:id="rightCurrentPathField" maxWidth="1.7976931348623157E308" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="5.0" />
+                    </AnchorPane>
+                    <TableView fx:id="rightTableView" fixedCellSize="0.0" onMouseClicked="#rightTableView_OnMouseClicked" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="rightTableImageColumn" maxWidth="30.0" minWidth="30.0" prefWidth="30.0">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="image " />
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="rightTableNameColumn" maxWidth="1.7976931348623157E308" minWidth="120.0" prefWidth="-1.0" text="%table.name">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="fileName" />
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="rightTableTypeColumn" maxWidth="1.7976931348623157E308" minWidth="120.0" prefWidth="-1.0" text="%table.type">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="fileType" />
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="rightTableSizeColumn" maxWidth="1.7976931348623157E308" minWidth="120.0" prefWidth="-1.0" text="%table.size">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="size" />
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="rightTableDateColumn" maxWidth="1.7976931348623157E308" minWidth="120.0" prefWidth="-1.0" text="%table.date">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="lastModifiedDate" />
+                                </cellValueFactory>
+                            </TableColumn>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </SplitPane>
+        </AnchorPane>
+    </center>
+</BorderPane>
